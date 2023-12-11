@@ -92,7 +92,7 @@ http1server settings ii conn transport app addr th istatus src =
       -- https://github.com/yesodweb/wai/issues/618
       | Just NoKeepAliveRequest <- fromException e = return ()
       -- No valid request
-      | Just (BadFirstLine _)   <- fromException e = return ()
+      | Just (BadFirstLine _)   <- fromException e = putStrLn $ "-----------> warp: Got BadFirst: " <> displayException e
       | otherwise = do
           _ <- sendErrorResponse settings ii conn th istatus defaultRequest { remoteHost = addr } e
           throwIO e
